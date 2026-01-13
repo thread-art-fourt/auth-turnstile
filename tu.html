@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+      
+      <head>
+         <meta charset="UTF-8">
+         <link rel="icon" href="data:,">
+         <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"></script>
+      
+         
+      </head>
+      
+      <body>
+         <div id="cf-turnstile"></div>
+         <script>
+            turnstile.ready(function () {
+                 if (!document.getElementById('cf-turnstile').hasChildNodes()) {
+                     const widgetId = turnstile.render('#cf-turnstile', {
+                        sitekey: '0x4AAAAAAA8fXrU6In_YnZHB',
+                        action: '',
+                        cData: '',
+                        theme: 'auto',
+                        size: 'normal',
+                        language: 'auto',
+                        retry: 'auto',
+                        'retry-interval': parseInt('8000'),
+                        'refresh-expired': 'auto',
+                        'refresh-timeout': 'auto',
+                        'feedback-enabled': false,
+                        callback: function (token) {
+                           window.flutter_inappwebview.callHandler(`TurnstileToken`, token);
+                        },
+                        'error-callback': function (code) {
+                           window.flutter_inappwebview.callHandler(`TurnstileError`, code);
+                        },
+                        'expired-callback': function () {
+                           window.flutter_inappwebview.callHandler(`TokenExpired`);
+                        }
+                     });
+      
+                     window.flutter_inappwebview.callHandler(`TurnstileWidgetId`, widgetId);
+                 }
+              });
+      
+         </script>
+         <style>
+            * {
+               overflow: hidden;
+               margin: 0;
+               padding: 0;
+            }
+         </style>
+      </body>
+      
+      </html>
